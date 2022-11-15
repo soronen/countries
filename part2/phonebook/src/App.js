@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import Phonebook from './components/Phonebook'
+import Phonebook from './components/Persons'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -28,39 +30,14 @@ const App = () => {
     setNewNumber('')
   }
 
-  const handleNameChange = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    console.log(event.target.value)
-    setNewNumber(event.target.value)
-  }
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        <form>
-          Filter names: 
-          <input value={filter} onChange={(event) => setFilter(event.target.value)}></input>
-        </form>
-
-      </div>
-
+      <Filter filter={filter} setFilter={setFilter}></Filter>
       <br></br>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <h2>Add a new person</h2>
+      <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} addPerson={addPerson}></PersonForm>
+      <h2>Numbers</h2>
       <Phonebook persons={persons} filter={filter}></Phonebook>
     </div>
   )
