@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import Phonebook from './components/Phonebook'
 
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', 
-      number: 555-1234567
+      number: '555-123456'
     }
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filter, setFilter] = useState('')
 
 
   const addPerson = (event) => {
@@ -36,10 +38,18 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
-
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        <form>
+          Filter names: 
+          <input value={filter} onChange={(event) => setFilter(event.target.value)}></input>
+        </form>
+
+      </div>
+
+      <br></br>
       <form onSubmit={addPerson}>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
@@ -51,10 +61,7 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
-      <ul>
-        {persons.map(person => <li key={person.name}>{person.name} - {person.number}</li>)}
-      </ul>
+      <Phonebook persons={persons} filter={filter}></Phonebook>
     </div>
   )
 }
