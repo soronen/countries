@@ -18,7 +18,7 @@ export default function Phonebook({ persons, filter }) {
                     {persons.map(person => {
                         if (person.name.toLowerCase().includes(filter.toLowerCase())) {
                             return <li key={person.name}>{person.name} - {person.number}</li>
-                        }
+                        } else return null
                     })}
                 </ul>
             </div>
