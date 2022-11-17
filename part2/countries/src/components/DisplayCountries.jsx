@@ -1,38 +1,32 @@
-export default function DisplayCountries({ countries }) {
+import MoreInfo from './MoreInfo';
 
-
-  const languagesToArr = (country) => {
-    return Object.keys(countries[0].languages)
-  }
-
+export default function DisplayCountries({ countries, shown, setShown, allCountries}) {
+  const showMore = (index) => {
+    const newSetShown = [...shown];
+    newSetShown[index] = !shown[index]
+    setShown(newSetShown);
+  };
 
   if (countries.length === 1) {
-    return (
-      <div>
-        <h1>{countries[0].name.common} {countries[0].flag}</h1>
-        <img src={countries[0].flags.png} alt='Country flag'></img>
-        <p>Capital: {countries[0].capital[0]}</p>
-        <p>Population: {countries[0].population}</p>
-        <h3>Languages: </h3>
-        <ul>
-          {Object.values(countries[0].languages).map(element => {
-            return <li key={element}>{element}</li>
-          })}
-        </ul>
-
-
-
-      </div>
-    );
-
+    return <MoreInfo country={countries[0]}></MoreInfo>;
   } else if (countries.length <= 10) {
     return (
       <div>
         <ul>
           {' '}
           Matching countries:
-          {countries.map((element) => {
-            return <li>{element.name.common}</li>;
+          {countries.map((element, index) => {
+            return (
+              <li key={index}>
+                {element.name.common}{' '}
+                <button onClick={() => showMore(allCountries.indexOf(element))}>More info</button>
+                <div>
+                  {shown[allCountries.indexOf(element)] ? (
+                    <MoreInfo country={element}></MoreInfo>
+                  ) : null}{' '}
+                </div>
+              </li>
+            );
           })}
         </ul>
       </div>

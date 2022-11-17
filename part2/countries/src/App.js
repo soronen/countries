@@ -11,6 +11,7 @@ function App() {
   const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
   const [results, setResults] = useState([])
+  const [shown, setShown] = useState(Array(300).fill(false))
 
   useEffect(() => {
     axios
@@ -35,7 +36,7 @@ function App() {
   return (
     <div>
       <FindCountries filter={filter} onChange={handleFilterChange}></FindCountries>
-      <DisplayCountries countries={results}></DisplayCountries>
+      <DisplayCountries countries={results} shown={shown} setShown={setShown} allCountries={countries}></DisplayCountries>
     </div>
 
   );
